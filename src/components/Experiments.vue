@@ -20,7 +20,6 @@ const setComponent = (component: string) =>
 </script>
 
 <template>
-  <h1>Experiments</h1>
   <template v-for="experiment in experiments" :key="experiment.name">
     <button
       type="button"
