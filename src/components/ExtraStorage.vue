@@ -1,29 +1,15 @@
 <script setup lang="ts">
 import { defineComponent, ref } from "vue";
 import { ExperimentMenu } from "../types";
+import { useIndexDb } from "../composables/indexDb";
+
+const db = useIndexDb("DB");
 
 const saveToStorage = () => {
   console.log("SaveToStorage");
-  const request = indexedDB.open("DA", 3);
+  console.log("Supported", db.supported);
 
-  request.onerror = (event: Event) => {
-    console.error(`Database error: ${event.target.errorCode}`);
-  };
-
-  request.onsuccess = (event: Event) => {
-    // add implementation here
-    console.log({ event });
-  };
-
-  // create the Contacts object store and indexes
-  request.onupgradeneeded = (event) => {
-    console.log("Updgrade");
-    let db = event.target.result;
-
-    // create the Contacts object store
-    // with auto-increment id
-    db.createObjectStore("Images");
-  };
+  db.setData("images", "ImageData");
 };
 
 if (!window.indexedDB) {
